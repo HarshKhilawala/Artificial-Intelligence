@@ -16,6 +16,7 @@ peers = dict((s,set(sum(units[s],[]))-set([s])) for s in boxes)
 values=[]
 digits='123456789'
 def grid_values(grid):
+    values = []
     assert len(grid) == 81, "Input grid must be a string of length 81 (9x9)"
     for i in grid:
         if i == '.':
@@ -54,8 +55,35 @@ def only_choice(values):
                 values[dplaces[0]]= digit
     return values
 
+def reduce_puzzle(values):
+    stalled=False
+    while not stalled:
+
+        # No of boxes with determined value before reducing
+        solved_values_before = len([box for box in values.keys() if len(values[box])==1])
+
+        # Elimination
+        values = eliminate(values)
+        # Only-Choice
+        values = only_choice(values)
+        # No of boxes with determined value after reducing
+        solved_values_after = len([box for box in values.keys() if len(values[box])==1])
+        stalled = solved_values_before==solved_values_after
+
+        if(len([box for box in values.keys() if len(values[box])==0])):
+            return False
+
+    return values
+
+
 grid= '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
 values= grid_values(grid)
-values=eliminate(values)
-values = only_choice(values)
+values=reduce_puzzle(values)
 display(values)
+
+
+
+grid2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
+values2 = grid_values(grid2)
+values2 = reduce_puzzle(values2)
+display(values2)
