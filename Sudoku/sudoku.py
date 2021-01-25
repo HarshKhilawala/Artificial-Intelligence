@@ -99,7 +99,7 @@ def search(values):
 # Easy Sudoku
 grid= '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
 values= grid_values(grid)
-values=reduce_puzzle(values)
+values = search(values)
 display(values)
 
 print("\n\n\n\n")
@@ -107,6 +107,5 @@ print("\n\n\n\n")
 # Harder Sudoku
 grid2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
 values2 = grid_values(grid2)
-values2 = reduce_puzzle(values2)
 values2 = search(values2)
 display(values2)
